@@ -1,0 +1,57 @@
+﻿
+@model  San.Flight.Api.Example.Web.Models.TicketReservationModel
+@{
+    ViewBag.Title = "Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <i class="fa fa-check round box-icon-large box-icon-center box-icon-success mb30"></i>
+            <h2 class="text-center">Your payment was successful!</h2>
+            <h5 class="text-center mb30">PNR @string.Join("-", Model.TicketDetails.PnrInfos.Select(o => o.Number))</h5>
+            <ul class="order-payment-list list mb30">
+                @*<li>
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <h5><i class="fa fa-plane"></i> Flight from London to New York City</h5>
+                                <p>
+                                    <small>April 24, 2014</small>
+                                </p>
+                            </div>
+                            <div class="col-xs-3">
+                                <p class="text-right">
+                                    <span class="text-lg">$150</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>*@
+                @foreach (var pnr in Model.TicketDetails.PnrInfos)
+                {
+                    foreach (var passenger in pnr.PassengerInfos)
+                    {
+                        <li>
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <h5><i class="fa fa-user"></i> @string.Format("{0}- {1} {2}", passenger.PassengerType, passenger.Name, passenger.Surname)  </h5>
+                                    <p>
+                                        <small>@passenger.BirthDate</small>
+                                    </p>
+                                </div>
+                                <div class="col-xs-3">
+                                    <p class="text-right">
+                                        <span class="text-lg">@(passenger.TicketNumber)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="gap"></div>
+</div>
